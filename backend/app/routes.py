@@ -7,8 +7,13 @@ bp = Blueprint('routes', __name__)
 
 models = {
     "gpt-3.5-turbo": openai.call_openai,
+    "gpt-4": openai.call_openai,
+    "gpt-4-turbo": openai.call_openai,
+    "gemini-1.0-pro": gemini.call_gemini,
+    "gemini-1.5-pro-latest": gemini.call_gemini,
     "claude-3-opus-20240229": anthropic.call_anthropic,
-    "gemini-pro": gemini.call_gemini
+    "claude-3-sonnet-20240229": anthropic.call_anthropic,
+    "claude-3-haiku-20240307": anthropic.call_anthropic
 }
 
 @bp.route('/models', methods=['GET'])
