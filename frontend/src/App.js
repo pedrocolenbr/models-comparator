@@ -7,7 +7,7 @@ import { fetchModels, fetchPromptModel } from './apiService';
 
 function App() {
   const numberOfColumns = 3;
-  const [textareaValue, setTextareaValue] = useState('who is taylor swift?');
+  const [textareaValue, setTextareaValue] = useState('who is taylor swift? Give me a response in bullet points in markdown format.');
   const [isLoading, setIsLoading] = useState(Array(numberOfColumns).fill(false));
   const [modelList, setModelList] = useState([]);
   const [responseData, setResponseData] = useState([]);
@@ -33,8 +33,9 @@ function App() {
           const selectedModel = column.querySelector('select')?.value;
           // Make request for each selected model
           if (selectedModel) {
+            const temperature = column.querySelector('input[type="range"]')?.value;
             try {
-              const response = await fetchPromptModel(selectedModel, promptValue);
+              const response = await fetchPromptModel(selectedModel, promptValue, temperature);
               const responseJson = JSON.parse(response);
               setResponseData(prevData => {
                 const newData = [...prevData];

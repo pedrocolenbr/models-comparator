@@ -11,6 +11,12 @@ function PromptComponent({ value, onChange, onClick, isLoading }) {
           placeholder="Enter text here..."
           value={value}
           onChange={onChange}
+          onKeyPress={event => {
+            if (event.key === 'Enter') {
+              event.preventDefault(); 
+              onClick();
+            }
+          }}
           disabled={isLoading}
         ></textarea>
 

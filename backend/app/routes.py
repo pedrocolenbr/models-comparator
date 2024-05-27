@@ -33,8 +33,13 @@ def prompt_model():
     if model not in models:
         return jsonify({"message": "Model not found"}), 400
 
-    temperature = request.json.get("temperature", 0.5)
     system_prompt = request.json.get("system_prompt", None)
+    temperature = request.json.get("temperature", 0.5)
+    if isinstance(temperature, str):
+        try:
+            temperature = float(temperature)
+        except ValueError:
+            return jsonify({"message": "Invalid temperature value"}), 400
 
     start_time = time.time()
     response = models[model](prompt, model, temperature, system_prompt)
